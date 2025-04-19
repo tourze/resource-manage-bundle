@@ -2,11 +2,11 @@
 
 namespace Tourze\ResourceManageBundle\Service;
 
-use AppBundle\Exception\UnknownResourceException;
-use AppBundle\Resource\ResourceProvider;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Tourze\EnumExtra\SelectDataFetcher;
+use Tourze\ResourceManageBundle\Exception\UnknownResourceException;
 
 #[Autoconfigure(public: true)]
 class ResourceManager implements SelectDataFetcher
@@ -32,7 +32,7 @@ class ResourceManager implements SelectDataFetcher
     /**
      * 发送奖励
      */
-    public function send(BizUser $user, string $type, string $typeId, string $amount, ?float $expireDay = null, ?\DateTimeInterface $expireTime = null): void
+    public function send(UserInterface $user, string $type, string $typeId, string $amount, ?float $expireDay = null, ?\DateTimeInterface $expireTime = null): void
     {
         foreach ($this->services as $service) {
             /** @var ResourceProvider $service */
