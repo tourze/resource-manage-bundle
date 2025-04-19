@@ -13,7 +13,7 @@
     "symfony/http-kernel": "^6.4",
     "symfony/framework-bundle": "^6.4",
     "symfony/security-core": "^6.4",
-    "tourze/enum-extra": "^0.0.4",
+    "tourze/enum-extra": "^0.0.5",
     "tourze/easy-admin-attribute": "0.0.*",
     "psr/log": "^3|^2|^1"
   },
