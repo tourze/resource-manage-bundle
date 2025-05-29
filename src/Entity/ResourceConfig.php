@@ -4,39 +4,36 @@ namespace Tourze\ResourceManageBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
-use Tourze\EasyAdmin\Attribute\Field\FormField;
-use Tourze\EasyAdmin\Attribute\Field\SelectField;
-use Tourze\ResourceManageBundle\Service\ResourceManager;
+use Tourze\DoctrineIndexedBundle\Attribute\IndexColumn;
+use Tourze\DoctrineTimestampBundle\Attribute\CreateTimeColumn;
+use Tourze\DoctrineTimestampBundle\Attribute\UpdateTimeColumn;
 
 #[ORM\Embeddable]
 class ResourceConfig
 {
-    #[FormField(span: 8)]
-    #[ListColumn]
-    #[SelectField(targetEntity: ResourceManager::class)]
     #[ORM\Column(type: Types::STRING, length: 60, options: ['comment' => '类型'])]
     private string $type;
 
-    #[FormField(span: 16)]
-    #[ListColumn]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true, options: ['comment' => '类型值ID'])]
     private ?string $typeId = null;
 
-    #[FormField(span: 8)]
-    #[ListColumn]
     #[ORM\Column(nullable: true, options: ['comment' => '单次派发数量', 'default' => 1])]
     private ?int $amount = 1;
 
-    #[FormField(span: 8)]
-    #[ListColumn]
     #[ORM\Column(nullable: true, options: ['comment' => '派发后有效天数'])]
     private ?float $expireDay = null;
 
-    #[FormField(span: 8)]
-    #[ListColumn]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '派发后到期时间'])]
     private ?\DateTimeInterface $expireTime = null;
+
+    #[IndexColumn]
+    #[CreateTimeColumn]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '创建时间'])]
+    private ?\DateTimeInterface $createTime = null;
+
+    #[UpdateTimeColumn]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '更新时间'])]
+    private ?\DateTimeInterface $updateTime = null;
 
     public function getType(): string
     {
@@ -96,5 +93,25 @@ class ResourceConfig
         $this->expireTime = $expireTime;
 
         return $this;
+    }
+
+    public function setCreateTime(?\DateTimeInterface $createdAt): void
+    {
+        $this->createTime = $createdAt;
+    }
+
+    public function getCreateTime(): ?\DateTimeInterface
+    {
+        return $this->createTime;
+    }
+
+    public function setUpdateTime(?\DateTimeInterface $updateTime): void
+    {
+        $this->updateTime = $updateTime;
+    }
+
+    public function getUpdateTime(): ?\DateTimeInterface
+    {
+        return $this->updateTime;
     }
 }
