@@ -538,7 +538,7 @@ class CouponProcessor implements ResourceProcessorInterface
                 resourceId: $couponId,
                 message: '优惠券发放成功'
             );
-        } catch (\Throwable $e) {
+        } catch  (\Throwable $e) {
             return new GrantResult(
                 success: false,
                 message: $e->getMessage()
@@ -555,7 +555,7 @@ class CouponProcessor implements ResourceProcessorInterface
                 success: $result->isSuccess(),
                 message: $result->getMessage()
             );
-        } catch (\Throwable $e) {
+        } catch  (\Throwable $e) {
             return new ConsumeResult(
                 success: false,
                 message: $e->getMessage()
