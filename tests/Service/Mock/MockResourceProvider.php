@@ -36,7 +36,7 @@ class MockResourceProvider implements ResourceProvider
 
     /**
      * 获取发送历史记录
-     * 
+     *
      * @return array 发送历史记录
      */
     public function getSendHistory(): array
