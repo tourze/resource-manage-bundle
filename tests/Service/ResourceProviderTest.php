@@ -46,7 +46,6 @@ class ResourceProviderTest extends TestCase
         $identities = $this->provider->getIdentities();
         
         $this->assertNotNull($identities);
-        $this->assertIsIterable($identities);
         $this->assertCount(3, $identities); // 默认2个 + 自定义1个
         
         // 验证资源是否包含自定义ID

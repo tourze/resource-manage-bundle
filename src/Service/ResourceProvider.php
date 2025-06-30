@@ -9,7 +9,7 @@ use Tourze\ResourceManageBundle\Model\ResourceIdentity;
 /**
  * 通用的资源服务
  */
-#[AutoconfigureTag(ResourceProvider::TAG_NAME)]
+#[AutoconfigureTag(name: ResourceProvider::TAG_NAME)]
 interface ResourceProvider
 {
     final public const TAG_NAME = 'resource.provider';

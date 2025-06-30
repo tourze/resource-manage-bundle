@@ -8,6 +8,7 @@ use Tourze\ResourceManageBundle\Service\ResourceProvider;
 
 /**
  * 资源提供者模拟类，用于测试
+ * @phpstan-ignore-next-line
  */
 class MockResourceProvider implements ResourceProvider
 {

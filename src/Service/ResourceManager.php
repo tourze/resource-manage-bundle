@@ -12,7 +12,7 @@ use Tourze\ResourceManageBundle\Exception\UnknownResourceException;
 class ResourceManager implements SelectDataFetcher
 {
     public function __construct(
-        #[TaggedIterator(ResourceProvider::TAG_NAME)] private readonly iterable $services,
+        #[TaggedIterator(tag: ResourceProvider::TAG_NAME)] private readonly iterable $services,
     ) {
     }
 

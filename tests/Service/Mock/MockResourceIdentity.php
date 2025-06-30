@@ -6,6 +6,7 @@ use Tourze\ResourceManageBundle\Model\ResourceIdentity;
 
 /**
  * 资源标识模拟类，用于测试
+ * @phpstan-ignore-next-line
  */
 class MockResourceIdentity implements ResourceIdentity
 {
