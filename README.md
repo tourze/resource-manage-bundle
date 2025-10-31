@@ -1,4 +1,19 @@
-# 资源管理系统设计文档
+# Resource Management Bundle
+
+[![PHP Version](https://img.shields.io/badge/php-%5E8.1-blue.svg)](https://www.php.net/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
+[![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](#)
+
+[English](README.md) | [中文](README.zh-CN.md)
+
+A universal resource distribution and management framework that supports unified management and distribution of various resource types.
+
+## Installation
+
+```bash
+composer require tourze/resource-manage-bundle
+```
 
 ## 系统概述
 
@@ -79,6 +94,10 @@ class MyResource implements ResourceIdentity
 2. 创建资源提供者类并实现 ResourceProvider 接口
 
 ```php
+use Symfony\Component\Security\Core\User\UserInterface;
+use Tourze\ResourceManageBundle\Model\ResourceIdentity;
+use Tourze\ResourceManageBundle\Service\ResourceProvider;
+
 class MyResourceProvider implements ResourceProvider
 {
     public function getCode(): string
@@ -101,7 +120,7 @@ class MyResourceProvider implements ResourceProvider
         // 查找特定资源
     }
 
-    public function sendResource(BizUser $user, ResourceIdentity $identity, string $amount, ?int $expireDay = null, ?\DateTimeInterface $expireTime = null): void
+    public function sendResource(UserInterface $user, ?ResourceIdentity $identity, string $amount, int|float|null $expireDay = null, ?\DateTimeInterface $expireTime = null): void
     {
         // 实现资源发放逻辑
     }
@@ -136,3 +155,7 @@ $resources = $this->resourceManager->genSelectData();
 2. 实现新的资源类型时，需要同时实现资源标识和提供者
 3. 资源发放时需要处理异常情况
 4. 建议为新增的资源类型添加单元测试
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -2,13 +2,17 @@
 
 namespace Tourze\ResourceManageBundle\Tests\Exception;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use Tourze\PHPUnitBase\AbstractExceptionTestCase;
 use Tourze\ResourceManageBundle\Exception\UnknownResourceException;
 
 /**
  * 未知资源异常测试类
+ *
+ * @internal
  */
-class UnknownResourceExceptionTest extends TestCase
+#[CoversClass(UnknownResourceException::class)]
+final class UnknownResourceExceptionTest extends AbstractExceptionTestCase
 {
     /**
      * 测试异常继承关系
@@ -46,7 +50,7 @@ class UnknownResourceExceptionTest extends TestCase
     {
         $previous = new \RuntimeException('前一个异常');
         $exception = new UnknownResourceException('当前异常', 0, $previous);
-        
+
         $this->assertSame($previous, $exception->getPrevious());
     }
-} 
+}

@@ -2,18 +2,24 @@
 
 namespace Tourze\ResourceManageBundle\Tests\Entity;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\ResourceManageBundle\Entity\ResourceConfig;
 
 /**
  * 资源配置实体测试类
+ *
+ * @internal
  */
-class ResourceConfigTest extends TestCase
+#[CoversClass(ResourceConfig::class)]
+final class ResourceConfigTest extends TestCase
 {
     private ResourceConfig $resourceConfig;
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->resourceConfig = new ResourceConfig();
     }
 
@@ -63,18 +69,24 @@ class ResourceConfigTest extends TestCase
     }
 
     /**
-     * 测试方法返回对象本身以支持链式调用
+     * 测试setter方法的void返回类型
      */
-    public function testMethodChainingSupport(): void
+    public function testSetterMethodsReturnVoid(): void
     {
-        $result = $this->resourceConfig
-            ->setType('test-type')
-            ->setTypeId('test-type-id')
-            ->setAmount(5)
-            ->setExpireDay(30.5)
-            ->setExpireTime(new \DateTime());
+        // 验证setter方法可以正常调用且不返回值（void）
+        // 这些调用不应该抛出异常，且无法在返回值上进行断言
+        $this->resourceConfig->setType('test-type');
+        $this->resourceConfig->setTypeId('test-type-id');
+        $this->resourceConfig->setAmount(5);
+        $this->resourceConfig->setExpireDay(30.5);
+        $this->resourceConfig->setExpireTime(new \DateTime());
 
-        $this->assertSame($this->resourceConfig, $result);
+        // 验证设置后的值是否正确
+        $this->assertEquals('test-type', $this->resourceConfig->getType());
+        $this->assertEquals('test-type-id', $this->resourceConfig->getTypeId());
+        $this->assertEquals(5, $this->resourceConfig->getAmount());
+        $this->assertEquals(30.5, $this->resourceConfig->getExpireDay());
+        $this->assertInstanceOf(\DateTime::class, $this->resourceConfig->getExpireTime());
     }
 
     /**
@@ -83,18 +95,16 @@ class ResourceConfigTest extends TestCase
     public function testWithNullValues(): void
     {
         // 设置非null值
-        $this->resourceConfig
-            ->setTypeId('test-type-id')
-            ->setAmount(5)
-            ->setExpireDay(30.5)
-            ->setExpireTime(new \DateTime());
+        $this->resourceConfig->setTypeId('test-type-id');
+        $this->resourceConfig->setAmount(5);
+        $this->resourceConfig->setExpireDay(30.5);
+        $this->resourceConfig->setExpireTime(new \DateTime());
 
         // 重置为null
-        $this->resourceConfig
-            ->setTypeId(null)
-            ->setAmount(null)
-            ->setExpireDay(null)
-            ->setExpireTime(null);
+        $this->resourceConfig->setTypeId(null);
+        $this->resourceConfig->setAmount(null);
+        $this->resourceConfig->setExpireDay(null);
+        $this->resourceConfig->setExpireTime(null);
 
         // 验证是否为null
         $this->assertNull($this->resourceConfig->getTypeId());

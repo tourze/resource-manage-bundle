@@ -2,19 +2,25 @@
 
 namespace Tourze\ResourceManageBundle\Tests\Model;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\ResourceManageBundle\Model\ResourceIdentity;
 use Tourze\ResourceManageBundle\Tests\Service\Mock\MockResourceIdentity;
 
 /**
  * 资源标识接口测试类
+ *
+ * @internal
  */
-class ResourceIdentityTest extends TestCase
+#[CoversClass(MockResourceIdentity::class)]
+final class ResourceIdentityTest extends TestCase
 {
     private MockResourceIdentity $mockIdentity;
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->mockIdentity = new MockResourceIdentity('test-id', 'Test Resource');
     }
 
@@ -50,7 +56,7 @@ class ResourceIdentityTest extends TestCase
         $id = 'custom-id';
         $label = 'Custom Label';
         $identity = new MockResourceIdentity($id, $label);
-        
+
         $this->assertEquals($id, $identity->getResourceId());
         $this->assertEquals($label, $identity->getResourceLabel());
     }
@@ -61,8 +67,8 @@ class ResourceIdentityTest extends TestCase
     public function testConstructWithDefaultParameters(): void
     {
         $identity = new MockResourceIdentity();
-        
+
         $this->assertEquals('mock-id', $identity->getResourceId());
         $this->assertEquals('Mock Resource', $identity->getResourceLabel());
     }
-} 
+}

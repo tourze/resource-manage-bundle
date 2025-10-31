@@ -7,82 +7,59 @@ use Tourze\ResourceManageBundle\Model\ResourceIdentity;
 use Tourze\ResourceManageBundle\Service\ResourceProvider;
 
 /**
- * 资源提供者模拟类，用于测试
- * @phpstan-ignore-next-line
+ * Mock 资源提供者类，用于测试
+ *
+ * @internal
  */
-class MockResourceProvider implements ResourceProvider
+final class MockResourceProvider implements ResourceProvider
 {
     private string $code;
+
     private string $label;
-    private array $resources = [];
+
+    /** @var array<string, ResourceIdentity> */
+    private array $identities = [];
+
+    /** @var array<int, array<string, mixed>> */
     private array $sendHistory = [];
 
-    public function __construct(string $code = 'mock', string $label = 'Mock Provider')
-    {
+    public function __construct(
+        string $code = 'mock-provider',
+        string $label = 'Mock Provider',
+    ) {
         $this->code = $code;
         $this->label = $label;
-        
+
         // 添加默认资源
-        $this->addResource(new MockResourceIdentity('resource-1', 'Resource 1'));
-        $this->addResource(new MockResourceIdentity('resource-2', 'Resource 2'));
+        $this->identities['default-1'] = new MockResourceIdentity('default-1', 'Default Resource 1');
+        $this->identities['default-2'] = new MockResourceIdentity('default-2', 'Default Resource 2');
     }
 
-    /**
-     * 添加资源到提供者
-     */
-    public function addResource(ResourceIdentity $resource): void
-    {
-        $this->resources[$resource->getResourceId()] = $resource;
-    }
-
-    /**
-     * 获取发送历史记录
-     *
-     * @return array 发送历史记录
-     */
-    public function getSendHistory(): array
-    {
-        return $this->sendHistory;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLabel(): string
     {
         return $this->label;
     }
 
     /**
-     * {@inheritdoc}
+     * @return array<string, ResourceIdentity>
      */
-    public function getIdentities(): ?iterable
+    public function getIdentities(): array
     {
-        return $this->resources;
+        return $this->identities;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findIdentity(string $identity): ?ResourceIdentity
     {
-        return $this->resources[$identity] ?? null;
+        return $this->identities[$identity] ?? null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function sendResource(UserInterface $user, ?ResourceIdentity $identity, string $amount, int|float|null $expireDay = null, ?\DateTimeInterface $expireTime = null): void
     {
-        // 记录发送历史，用于测试验证
         $this->sendHistory[] = [
             'user' => $user,
             'identity' => $identity,
@@ -91,4 +68,22 @@ class MockResourceProvider implements ResourceProvider
             'expireTime' => $expireTime,
         ];
     }
-} 
+
+    /**
+     * 添加资源
+     */
+    public function addResource(ResourceIdentity $identity): void
+    {
+        $this->identities[$identity->getResourceId()] = $identity;
+    }
+
+    /**
+     * 获取发送历史
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function getSendHistory(): array
+    {
+        return $this->sendHistory;
+    }
+}

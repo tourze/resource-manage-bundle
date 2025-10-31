@@ -5,33 +5,31 @@ namespace Tourze\ResourceManageBundle\Tests\Service\Mock;
 use Tourze\ResourceManageBundle\Model\ResourceIdentity;
 
 /**
- * 资源标识模拟类，用于测试
- * @phpstan-ignore-next-line
+ * Mock 资源标识类，用于测试
+ *
+ * @internal
  */
-class MockResourceIdentity implements ResourceIdentity
+final class MockResourceIdentity implements ResourceIdentity
 {
-    private string $id;
-    private string $label;
+    private string $resourceId;
 
-    public function __construct(string $id = 'mock-id', string $label = 'Mock Resource')
-    {
-        $this->id = $id;
-        $this->label = $label;
+    private string $resourceLabel;
+
+    public function __construct(
+        string $resourceId = 'mock-id',
+        string $resourceLabel = 'Mock Resource',
+    ) {
+        $this->resourceId = $resourceId;
+        $this->resourceLabel = $resourceLabel;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResourceId(): string
     {
-        return $this->id;
+        return $this->resourceId;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResourceLabel(): string
     {
-        return $this->label;
+        return $this->resourceLabel;
     }
-} 
+}

@@ -3,16 +3,19 @@
 namespace Tourze\ResourceManageBundle\Service;
 
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
-use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Tourze\EnumExtra\SelectDataFetcher;
 use Tourze\ResourceManageBundle\Exception\UnknownResourceException;
 
 #[Autoconfigure(public: true)]
-class ResourceManager implements SelectDataFetcher
+readonly class ResourceManager implements SelectDataFetcher
 {
+    /**
+     * @param iterable<ResourceProvider> $services
+     */
     public function __construct(
-        #[TaggedIterator(tag: ResourceProvider::TAG_NAME)] private readonly iterable $services,
+        #[AutowireIterator(tag: ResourceProvider::TAG_NAME)] private iterable $services,
     ) {
     }
 

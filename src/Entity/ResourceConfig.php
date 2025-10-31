@@ -10,6 +10,7 @@ use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 class ResourceConfig
 {
     use TimestampableAware;
+
     #[ORM\Column(type: Types::STRING, length: 60, options: ['comment' => '类型'])]
     private string $type;
 
@@ -22,7 +23,7 @@ class ResourceConfig
     #[ORM\Column(nullable: true, options: ['comment' => '派发后有效天数'])]
     private ?float $expireDay = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['comment' => '派发后到期时间'])]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true, options: ['comment' => '派发后到期时间'])]
     private ?\DateTimeInterface $expireTime = null;
 
     public function getType(): string
@@ -30,11 +31,9 @@ class ResourceConfig
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(string $type): void
     {
         $this->type = $type;
-
-        return $this;
     }
 
     public function getTypeId(): ?string
@@ -42,11 +41,9 @@ class ResourceConfig
         return $this->typeId;
     }
 
-    public function setTypeId(?string $typeId): self
+    public function setTypeId(?string $typeId): void
     {
         $this->typeId = $typeId;
-
-        return $this;
     }
 
     public function getAmount(): ?int
@@ -54,11 +51,9 @@ class ResourceConfig
         return $this->amount;
     }
 
-    public function setAmount(?int $amount): self
+    public function setAmount(?int $amount): void
     {
         $this->amount = $amount;
-
-        return $this;
     }
 
     public function getExpireDay(): ?float
@@ -66,11 +61,9 @@ class ResourceConfig
         return $this->expireDay;
     }
 
-    public function setExpireDay(?float $expireDay): self
+    public function setExpireDay(?float $expireDay): void
     {
         $this->expireDay = $expireDay;
-
-        return $this;
     }
 
     public function getExpireTime(): ?\DateTimeInterface
@@ -78,9 +71,8 @@ class ResourceConfig
         return $this->expireTime;
     }
 
-    public function setExpireTime(?\DateTimeInterface $expireTime): self
+    public function setExpireTime(?\DateTimeInterface $expireTime): void
     {
         $this->expireTime = $expireTime;
-
-        return $this;
-    }}
+    }
+}
